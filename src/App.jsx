@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Admin from './views/Admin';
 
 //  Componentes
 import Navbar from "./components/Navbar"
@@ -108,12 +109,21 @@ function App() {
           setIsOpen={setIsCartOpen}
         />
 
-        {/* Aca estan las rutas dinamicas */}
+        
         <main className="max-w-7xl w-full mx-auto px-4 md:px-8 py-8 flex-grow">
+         
+         
           <Routes>
-            {/* Ruta 1: Página de Inicio (Formulario + Catálogo) */}
-            <Route path="/" element={
+
+             <Route path="/" element={
               <Home 
+              lista={lista}
+              agregarAlCarrito={agregarAlCarrito}
+              />
+             } />
+            
+            <Route path="admin" element={
+              <Admin
                 lista={lista}
                 nuevoNombre={nuevoNombre}
                 setNuevoNombre={setNuevoNombre}
@@ -125,22 +135,23 @@ function App() {
                 setNuevaDescripcion={setNuevaDescripcion}
                 agregarProducto={agregarProducto}
                 eliminarProducto={eliminarProducto}
-                agregarAlCarrito={agregarAlCarrito}
+                
               />
             } />
 
-            {/* Ruta 2: Página de Detalle de Producto extendido */}
+            
             <Route path="/producto/:id" element={
               <DetalleProducto 
                 lista={lista} 
                 agregarAlCarrito={agregarAlCarrito} 
-                 /*enviarPedidoWhatsApp={enviarPedidoWhatsApp} */ /*dejo esto comentado porque no logre recuperar la ruta a finalizar la compra en wattssap*/
+                 //enviarPedidoWhatsApp={enviarPedidoWhatsApp} //dejo esto comentado porque no logre recuperar la ruta a finalizar la compra en wattssap
               />
             } />
 
-            {/* Ruta 3: Página de Contacto */}
+           
             <Route path="/contacto" element={<Contacto />} />
           </Routes>
+
         </main>
 
         

@@ -6,16 +6,16 @@ const Footer = () => {
     <footer className="bg-stone-900 text-stone-400 py-10 mt-12 border-t border-stone-800">
       <div className="max-w-7xl mx-auto px-4 text-center space-y-8">
         
-        /*  Tarjetas de Profesionales / Productores */
+       
         <div>
           <h3 className="text-xs font-black text-amber-500 uppercase tracking-widest mb-6">
             Profesionales a cargo de la producción
           </h3>
           
-          {/* Contenedor en fila para computadoras y columna para celulares */}
+          
           <div className="flex flex-col md:flex-row justify-center items-center gap-6 max-w-4xl mx-auto">
             
-            {/* Profesional 1 */}
+           
             <TarjetaProfesional 
               nombre=" Ana Martínez"
               rol="Tecnica en seguridad e Higiene"
@@ -23,7 +23,7 @@ const Footer = () => {
               imagen="/imagenes/profesional1.jpg" // Recuerda guardar la foto en public/imagenes/
             />
 
-            {/* Profesional 2 */}
+            
             <TarjetaProfesional 
               nombre="Ing. Carlos Rossi"
               rol="Jefe de Producción"
@@ -31,7 +31,6 @@ const Footer = () => {
               imagen="/imagenes/profesional2.jpg"
             />
 
-            {/* Profesional 3 */}
             <TarjetaProfesional 
               nombre="Lucía Gómez"
               rol="Certificada en Manipulacion de alimentos"

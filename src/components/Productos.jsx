@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Productos = ({id, producto, precio, imagen, descripcion, onDelete, onAgregar }) => {
+const Productos = ({id, producto, precio, imagen, descripcion, onDelete, onAgregar, esAdmin }) => {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 flex flex-col h-full transition-transform hover:scale-[1.02]">
-      {/* Contenedor de Imagen */}
+      
       <div className="w-full h-56 bg-gray-50 flex items-center justify-center p-2">
         <Link to={`/producto/${id}`} className="w-full h-56 bg-gray-50 flex items-center justify-center p-2 block hover:opacity-90 transition-opacity">
 
@@ -30,7 +30,7 @@ const Productos = ({id, producto, precio, imagen, descripcion, onDelete, onAgreg
           {descripcion || "Productos artesanales de calidad superior, elaborados con ingredientes naturales y técnicas tradicionales para ofrecerte una experiencia única ."}
         </p>
 
-        {/* Precio y Botón al final */}
+        
 
         <div className="mt-auto">
           <div className="flex justify-between items-baseline mb-3">
@@ -45,12 +45,14 @@ const Productos = ({id, producto, precio, imagen, descripcion, onDelete, onAgreg
             Agregar al Carrito
           </button>
           
+          {esAdmin && (
           <button 
             onClick={onDelete}
             className="w-full py-1 px-4 bg-red-50 text-red-500 text-xs rounded-lg hover:bg-red-100 transition-colors"
           >
             Eliminar
           </button>
+          )}
          
         </div>
       </div>

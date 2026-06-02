@@ -3,7 +3,7 @@ import React from 'react';
 const TarjetaProfesional = ({ nombre, rol, matricula, imagen }) => {
   return (
     <div className="bg-stone-800 p-4 rounded-xl border border-stone-700 flex items-center gap-4 text-left max-w-xs w-full mx-auto">
-      {/* Foto de perfil del profesional */}
+     
       <div className="w-16 h-16 rounded-full overflow-hidden bg-stone-700 border border-amber-500 shrink-0 flex items-center justify-center">
         <img 
           src={imagen || "https://placeholder.com"} 

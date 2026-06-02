@@ -4,6 +4,9 @@ const Carrito = ({ carrito, setCarrito, isOpen, setIsOpen, totalItems }) => {
   // Calcular el total de la compra
   const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 
+
+
+   
   const aumentarCantidad = (id) => {
     setCarrito(carrito.map(item => 
       item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item

@@ -22,11 +22,12 @@ const Contacto = () => {
     
     texto = texto + "• Mensaje: " + mensaje + "\n";
     
-    const numeroTelefono = "5491121769253";
-    const url = "https://wa.me" + numeroTelefono + "?text=" + encodeURIComponent(texto);
-    window.open(url, "_blank");
+    const numeroTelefono = "5491121769253"; 
+    const urlFinal = "https://wa.me/" + 
+    numeroTelefono + "?text=" + encodeURIComponent(mensaje);
+    window.open(urlFinal, "_blank");
 
-    // Limpiar campos
+    
     setNombre("");
     setEmail("");
     setMensaje("");
@@ -36,7 +37,7 @@ const Contacto = () => {
     <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-orange-200 shadow-sm overflow-hidden p-6 md:p-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        {/* Lado Izquierdo: Información de la tienda */}
+       
         <div className="space-y-6 bg-amber-50/50 p-6 rounded-xl border border-amber-100">
           <h2 className="text-2xl font-black text-stone-800 uppercase tracking-tight">
                 Contáctanos
@@ -58,7 +59,7 @@ const Contacto = () => {
           </div>
         </div>
 
-        {/* Lado Derecho: Formulario interactivo */}
+        
         <form onSubmit={enviarConsultaWhatsApp} className="space-y-4">
           <h3 className="text-lg font-bold text-stone-800 uppercase tracking-wide">
             Escríbenos tu mensaje
@@ -70,7 +71,7 @@ const Contacto = () => {
               type="text" 
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              placeholder="Ej: Juan Pérez"
+              placeholder="Ej: Marcia"
               className="w-full p-2.5 rounded-lg border border-gray-300 outline-none focus:ring-2 focus:ring-amber-500 text-sm"
             />
           </div>
@@ -81,7 +82,7 @@ const Contacto = () => {
               type="email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="juan@example.com"
+              placeholder="@example.com"
               className="w-full p-2.5 rounded-lg border border-gray-300 outline-none focus:ring-2 focus:ring-amber-500 text-sm"
             />
           </div>

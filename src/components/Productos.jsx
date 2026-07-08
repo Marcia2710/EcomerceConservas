@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Productos = ({id, producto, precio, imagen, descripcion, onDelete, onAgregar, esAdmin }) => {
+const Productos = ({id, producto, precio, imagen, descripcion, onDelete, agregarAlCarrito, onAgregar, esAdmin }) => {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 flex flex-col h-full transition-transform hover:scale-[1.02]">
       
@@ -39,7 +39,7 @@ const Productos = ({id, producto, precio, imagen, descripcion, onDelete, onAgreg
           </div>
 
            <button 
-            onClick={onAgregar}
+            onClick={() => onAgregar({id, producto, precio, imagen, descripcion})}
             className="w-full mb-2 py-2 px-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200"
           >
             Agregar al Carrito

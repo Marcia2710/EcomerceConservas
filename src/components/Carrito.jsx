@@ -1,28 +1,54 @@
-import React from 'react';
-
-const Carrito = ({ carrito, setCarrito, isOpen, setIsOpen, totalItems }) => {
-  // Calcular el total de la compra
-  const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+import React from "react";
+import { useNavigate } from "react-router-dom"
 
 
+const Carrito = ({ carrito, setCarrito, isOpen, setIsOpen, totalItems, user }) => {
+  const navigate = useNavigate();
 
-   
+  // 🟢 Calcular el total de la compra (multiplicando precio por cantidad)
+  const total = carrito?.reduce((acc, item) => {
+    const precioNumerico = Number(item.precio) || 0;
+    const cantidadNumerica = Number(item.cantidad) || 1;
+    return acc + (precioNumerico * cantidadNumerica);
+  }, 0) || 0;
+
+  // 🟢 Función para aumentar cantidad (Corregido 'cantidad')
   const aumentarCantidad = (id) => {
-    setCarrito(carrito.map(item => 
-      item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
+    setCarrito(carrito.map((item) => 
+      item.id === id ? { ...item, cantidad: (item.cantidad || 1) + 1 } : item
     ));
   };
 
+  // 🟢 Función para disminuir cantidad
   const disminuirCantidad = (id) => {
-    setCarrito(carrito.map(item => {
-      if (item.id === id) return { ...item, cantidad: item.cantidad - 1 };
-      return item;
-    }).filter(item => item.cantidad > 0));
+    setCarrito(carrito.map((item) => 
+      item.id === id ? { ...item, cantidad: (item.cantidad || 1) - 1 } : item
+    ).filter((item) => item.cantidad > 0));
   };
+
+  // 🟢 Manejar el botón de pago (Corregido a 'user')
+  const manejarCompra = () => {
+    if (!user) {
+      alert("Para finalizar tu compra por favor inicia sesión o regístrate.");
+      setIsOpen(false);
+      navigate("/login");
+    } else {
+      alert("¡Procediendo al pago!");
+      // Aquí puedes llamar a tu función de enviarPedidoWhatsapp() si la tienes
+    }
+  };
+
 
   const vaciarCarrito = () => setCarrito([]);
 
  const enviarPedidoWhatsApp = () => {
+   if (!user) {
+    alert("Para finalizar tu pedido por Watsapp porfavor inicia sesion o registrate");
+    setIsOpen(false);
+    navigate("/login");
+
+    return;
+   }
     let mensaje = "🛒 Nuevo Pedido de Conservas y Fermentados 🛒\n\n";
     
     carrito.forEach((item) => {
@@ -32,16 +58,17 @@ const Carrito = ({ carrito, setCarrito, isOpen, setIsOpen, totalItems }) => {
     mensaje = mensaje + "\n💰 Total a Pagar: $" + total + " ARS";
     
     const numeroTelefono = "5491121769253"; 
-    const url = "https://whatsap.com" + numeroTelefono + "&text=" + encodeURIComponent(mensaje);
-    window.open(url, "_blank");
+    const urlFinal = "https://wa.me/" + 
+    numeroTelefono + "?text=" + encodeURIComponent(mensaje);
+    window.open(urlFinal, "_blank");
     
     setCarrito([]);
     setIsOpen(false);
   };
 
   return (
-    <div className="relative">
-      {/* Botón del carrito */}
+    <div className="relative z-50">
+      
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 bg-amber-700 text-white px-4 py-2 rounded-full hover:bg-amber-800 transition-all shadow-md font-bold text-xs md:text-sm"
@@ -57,9 +84,10 @@ const Carrito = ({ carrito, setCarrito, isOpen, setIsOpen, totalItems }) => {
 
       {/* Menú desplegable flotante */}
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 p-5 z-50 text-stone-800">
+        <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 p-5 text-stone-800">
+
           <div className="flex justify-between items-center border-b pb-3 mb-4">
-            <h2 className="text-base font-bold">Tus Productos</h2>
+            <h3 className="text-base font-bold">Tus Carrito</h3>
             {carrito.length > 0 && (
               <button onClick={vaciarCarrito} className="text-xs text-red-500 underline font-medium">
                 Vaciar carrito

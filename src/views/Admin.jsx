@@ -1,13 +1,40 @@
+import { useState } from "react";  
 import React from 'react';
 import Productos from '../components/Productos';
 
-const Admin = ({ 
-  lista, nuevoNombre, setNuevoNombre, nuevoPrecio, setNuevoPrecio, 
-  nuevaImagen, setNuevaImagen, nuevaDescripcion, setNuevaDescripcion, 
-  agregarProducto, eliminarProducto 
-}) => {
-  return (
-    <div className="space-y-12">
+const Admin = ({ lista, agregarProducto, eliminarProducto}) => {
+// 2. Traemos los estados del formulario acá adentro 
+  const [nuevoNombre, setNuevoNombre] = useState("");
+  const [nuevoPrecio, setNuevoPrecio] = useState("");
+  const [nuevaImagen, setNuevaImagen] = useState("");
+  const [nuevaDescripcion, setNuevaDescripcion] = useState("");
+ // Función para manejar el envío del formulario
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!nuevoNombre || !nuevoPrecio) {
+      alert("Por favor, completa el nombre y el precio del producto.");
+      return;
+    }
+    // Creamos el objeto del nuevo producto
+    const nuevoProducto = {
+      id: Date.now(), // ID único provisional
+      productos: nuevoNombre.toUpperCase(),
+      precio: Number(nuevoPrecio),
+      imagen: nuevaImagen || "/imagenes/placeholder.jpg",
+      descripcion: nuevaDescripcion,
+    };
+   // Llamamos a la función que viene de App.jsx
+    agregarProducto(nuevoProducto);
+
+    // Limpiamos los inputs
+    setNuevoNombre("");
+    setNuevoPrecio("");
+    setNuevaImagen("");
+    setNuevoDescripcion("");
+  }
+
+return (
+     <div className="space-y-12">
      
       <div className="bg-white p-6 rounded-2xl border border-orange-200 shadow-sm max-w-3xl mx-auto">
         <div className="flex items-center gap-2 mb-6 border-b border-orange-100 pb-3">
@@ -41,10 +68,11 @@ const Admin = ({
           Publicar Producto 
         </button>
       </div>
+       http://localhost:5173/
 
-     
-      <div className="border border-orange-200 shadow-sm max-w-7xl mx-auto">
+     <div className="border border-orange-200 shadow-sm max-w-7xl mx-auto">
         <h3 className="text-sm font-bold text-stone-600 uppercase mb-4">Administrar Stock Actual ({lista.length})</h3>
+
        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {lista.length === 0 ? (
             <p className="text-gray-500 italic py-4">No hay productos en el stock.</p>
